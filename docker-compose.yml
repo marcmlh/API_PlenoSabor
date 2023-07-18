@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  database_plenosabor:
+    image: postgres
+    container_name: database_plenosabor
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=plenosabor
+      - POSTGRES_DB=plenosabor
+    volumes:
+      - pgdata:/data/postgres
+  app:
+    build: .
+    container_name: plenosabor
+    ports:
+      - 3333:3333
+    volumes:
+      - .:/usr/app
+    links:
+      - database_plenosabor
+    depends_on:
+      - database_plenosabor
+
+volumes:
+  pgdata:
+    driver: local
