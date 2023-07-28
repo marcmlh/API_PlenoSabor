@@ -1,13 +1,14 @@
+import "reflect-metadata"
 import { inject, injectable } from "tsyringe";
-import { ProductsRepository } from "../repositories/ProductsRepository";
 import { Products } from "../entities/Products";
 import { DefaultResponse } from "../../../global/DefaultResponse";
 import jsonpatch from "jsonpatch";
+import { IProductsRepository } from "../repositories/IProductsRepository";
 
 @injectable()
 export class ProductsService {
   constructor(
-    @inject("ProductsRepository") private productsRepository: ProductsRepository
+    @inject("ProductsRepository") private productsRepository: IProductsRepository
   ) {}
 
   async create(

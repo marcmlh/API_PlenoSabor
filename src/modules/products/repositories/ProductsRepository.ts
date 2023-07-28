@@ -1,8 +1,9 @@
 import { Repository } from "typeorm";
 import { dataSource } from "../../../database/data-source";
 import { Products } from "../entities/Products";
+import { IProductsRepository } from "./IProductsRepository";
 
-export class ProductsRepository {
+export class ProductsRepository implements IProductsRepository {
   private repository: Repository<Products>;
 
   constructor() {

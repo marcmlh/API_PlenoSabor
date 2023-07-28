@@ -1,24 +1,25 @@
+import "reflect-metadata"
 import { inject, injectable } from "tsyringe";
 import jsonpatch from "jsonpatch";
 import { ItemsList } from "../entities/ItemsList";
-import { ItemsListRepository } from "../repositories/ItemsListRepository";
-import { ProductsRepository } from "../../products/repositories/ProductsRepository";
 import { DefaultResponse } from "../../../global/DefaultResponse";
+import { IItemsListRepository } from "../repositories/IItemsListRepository";
+import { IProductsRepository } from "../../products/repositories/IProductsRepository";
 
 @injectable()
 export class ItemsListService {
   constructor(
     @inject("ItemsListRepository")
-    private itemsListRepository: ItemsListRepository,
+    private itemsListRepository: IItemsListRepository,
     @inject("ProductsRepository")
-    private productsRepository: ProductsRepository
+    private productsRepository: IProductsRepository
   ) {}
 
   async create(
     order_id: string,
     product_id: string,
     quantity: number,
-    details: string
+    details?: string
   ): Promise<ItemsList> {
     const product = await this.productsRepository.findById(product_id);
 
@@ -29,7 +30,7 @@ export class ItemsListService {
       product_id
     );
 
-    if (itemAlreadyExists) {
+    if (itemAlreadyExists && itemAlreadyExists.details == details) {
       const itemToUpdate = {
         itemList_id: itemAlreadyExists.itemList_id,
         order_id,
@@ -37,6 +38,7 @@ export class ItemsListService {
         product_name: itemAlreadyExists.product_name,
         unit_price: itemAlreadyExists.unit_price,
         quantity: itemAlreadyExists.quantity + quantity,
+        details: itemAlreadyExists.details,
         total: itemAlreadyExists.total + total,
       };
 
@@ -60,10 +62,6 @@ export class ItemsListService {
 
   async findByOrderId(order_id: string): Promise<ItemsList[]> {
     const items = await this.itemsListRepository.findByListId(order_id);
-
-    if (!items) {
-      return [];
-    }
 
     return items;
   }

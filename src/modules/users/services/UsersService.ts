@@ -1,14 +1,15 @@
+import "reflect-metadata"
 import { inject, injectable } from "tsyringe";
 import { Users } from "../entities/Users";
 import { compare, hash } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { DefaultResponse } from "../../../global/DefaultResponse";
-import { UsersRepository } from "../repositories/UsersRepository";
+import { IUsersRepository } from "../repositories/IUsersRepository";
 
 @injectable()
 export class UsersService {
   constructor(
-    @inject("UsersRepository") private usersRepository: UsersRepository
+    @inject("UsersRepository") private usersRepository: IUsersRepository
   ) {}
 
   async create(
@@ -74,7 +75,7 @@ export class UsersService {
     return user;
   }
 
-  async authenticate(email: string, password: string): Promise<any> {
+  async authenticate(email: string, password: string) {
     const userExists = await this.usersRepository.findByEmail(email);
     if (!userExists) {
       throw new DefaultResponse("User not found.", false, 400);

@@ -1,18 +1,9 @@
 import { Repository } from "typeorm";
 import { dataSource } from "../../../database/data-source";
 import { ItemsList } from "../entities/ItemsList";
+import { CreateParams, IItemsListRepository } from "./IItemsListRepository";
 
-interface CreateParams {
-  order_id: string;
-  product_id: string;
-  product_name: string;
-  unit_price: number;
-  quantity: number;
-  details: string;
-  total: number;
-}
-
-export class ItemsListRepository {
+export class ItemsListRepository implements IItemsListRepository{
   private repository: Repository<ItemsList>;
 
   constructor() {
@@ -68,13 +59,14 @@ export class ItemsListRepository {
     product_id,
     quantity,
     total,
+    details
   }): Promise<void> {
     const item = await this.repository.create({
-      itemList_id,
       order_id,
       product_id,
       quantity,
       total,
+      details
     });
 
     await this.repository.update(itemList_id, item);

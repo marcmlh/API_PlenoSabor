@@ -1,8 +1,9 @@
 import { Repository } from "typeorm";
 import { Orders } from "../entities/Order";
 import { dataSource } from "../../../database/data-source";
+import { IOrdersRepository } from "./IOrdersRepository";
 
-export class OrdersRepository {
+export class OrdersRepository implements IOrdersRepository{
   private repository: Repository<Orders>;
 
   constructor() {
@@ -45,7 +46,6 @@ export class OrdersRepository {
     payment_status,
   }): Promise<void> {
     const order = await this.repository.create({
-      order_id,
       user_id,
       order_date,
       payment_status,

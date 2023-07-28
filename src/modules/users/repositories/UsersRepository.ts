@@ -1,9 +1,11 @@
+import "reflect-metadata"
 import { Repository } from "typeorm";
 import { Users } from "../entities/Users";
 import { dataSource } from "../../../database/data-source";
+import { IUsersRepository } from "./IUsersRepository";
 
 
-export class UsersRepository {
+export class UsersRepository implements IUsersRepository {
     private repository: Repository<Users>
     constructor(){
         this.repository = dataSource.getRepository(Users);
