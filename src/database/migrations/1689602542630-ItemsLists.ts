@@ -25,21 +25,22 @@ export class ItemsLists1689602542630 implements MigrationInterface {
           },
           {
             name: "unit_price",
-            type: "numeric",
+            type: "real",
           },
 
           {
             name: "quantity",
-            type: "numeric",
+            type: "smallint",
           },
           {
             name: "details",
             type: "varchar",
+            isNullable:true
           },
 
           {
             name: "total",
-            type: "numeric",
+            type: "real",
           },
         ],
         foreignKeys: [
@@ -49,6 +50,7 @@ export class ItemsLists1689602542630 implements MigrationInterface {
             referencedColumnNames: ["order_id"],
             columnNames: ["order_id"],
             onDelete: "CASCADE",
+            onUpdate: "CASCADE",
           },
           {
             name: "FKProducts",
@@ -56,6 +58,7 @@ export class ItemsLists1689602542630 implements MigrationInterface {
             referencedColumnNames: ["product_id"],
             columnNames: ["product_id"],
             onDelete: "CASCADE",
+            onUpdate: "CASCADE",
           },
         ],
       })

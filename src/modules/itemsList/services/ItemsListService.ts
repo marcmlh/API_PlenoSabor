@@ -1,4 +1,4 @@
-import "reflect-metadata"
+import "reflect-metadata";
 import { inject, injectable } from "tsyringe";
 import jsonpatch from "jsonpatch";
 import { ItemsList } from "../entities/ItemsList";
@@ -24,7 +24,6 @@ export class ItemsListService {
     const product = await this.productsRepository.findById(product_id);
 
     const total = quantity * product.price;
-
     const itemAlreadyExists = await this.itemsListRepository.findByIds(
       order_id,
       product_id
@@ -89,7 +88,7 @@ export class ItemsListService {
 
     const patchedItem = jsonpatch.apply_patch(itemAlreadyExists, operations);
 
-    patchedItem.total = patchedItem.quantity * patchedItem.unit_price
+    patchedItem.total = patchedItem.quantity * patchedItem.unit_price;
 
     await this.itemsListRepository.patch(patchedItem);
 

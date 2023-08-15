@@ -21,11 +21,12 @@ export class Products1689015761498 implements MigrationInterface {
           },
           {
             name: "price",
-            type: "numeric",
+            type: "real",
           },
           {
             name: "description",
             type: "varchar",
+            isNullable:true
           },
         ],
       })

@@ -15,7 +15,7 @@ export class ProductsService {
     product_name: string,
     category: string,
     price: number,
-    description: string
+    description?: string | undefined
   ): Promise<Products> {
     const productAlreadyExists = await this.productsRepository.findByName(
       product_name

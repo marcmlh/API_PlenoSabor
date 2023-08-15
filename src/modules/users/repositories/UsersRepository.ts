@@ -34,6 +34,7 @@ export class UsersRepository implements IUsersRepository {
     
       async update(user_id: string, user_name: string, password: string, email: string): Promise<Users> {
         const user = this.repository.create({
+          user_id,
           user_name,
           password,
           email,

@@ -9,15 +9,15 @@ export class Users {
     }
   }
 
-  @PrimaryColumn()
+  @PrimaryColumn('text',{nullable:false})
   user_id: string;
 
-  @Column()
+  @Column('text',{nullable:false})
   user_name: string;
 
-  @Column()
+  @Column('text',{nullable:false})
   password: string;
 
-  @Column()
+  @Column('text',{nullable:false})
   email: string;
 }

@@ -19,13 +19,16 @@ export const dataSource = new DataSource({
     migrations: [Products1689015761498, Users1689110773997, Orders1689260987892, ItemsLists1689602542630]
 })
 
-export function createConnection (host = "localhost"){
-    dataSource.setOptions({
-        host
+export async function createConnection (database? : string,host = "localhost"){
+    return await dataSource.setOptions({
+        host : process.env.NODE_ENV === "localdevelopment" ? host : "database_plenosabor",
+        database : database ?? "plenosabor"
     }).initialize().then(()=>{
         console.log("Database was initialized")
+        return dataSource
     }).catch((error)=>{
         console.log(`Connection error : ${error}` )
+        throw new Error(error)
     })
 }
 ``

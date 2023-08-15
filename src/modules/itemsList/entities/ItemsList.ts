@@ -9,28 +9,28 @@ export class ItemsList {
     }
   }
 
-  @PrimaryColumn()
+  @PrimaryColumn('text',{nullable:false})
   itemList_id: string;
 
-  @Column()
+  @Column('text',{nullable:false})
   order_id: string;
 
-  @Column()
+  @Column('text',{nullable:false})
   product_id: string;
 
-  @Column()
+  @Column('text',{nullable:false})
   product_name: string;
 
   
-  @Column()
+  @Column('numeric',{nullable:false})
   unit_price: number;
   
-  @Column()
+  @Column('numeric',{nullable:false})
   quantity: number;
   
-  @Column()
+  @Column('text',{nullable:true})
   details?: string;
 
-  @Column()
+  @Column('numeric',{nullable:false})
   total: number;
 }

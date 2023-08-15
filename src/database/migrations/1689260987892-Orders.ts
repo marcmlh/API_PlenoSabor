@@ -34,6 +34,7 @@ export class Orders1689260987892 implements MigrationInterface {
                   referencedColumnNames: ["user_id"],
                   columnNames: ["user_id"],
                   onDelete: "CASCADE",
+                  onUpdate: "CASCADE"
                 },
               ],
             })

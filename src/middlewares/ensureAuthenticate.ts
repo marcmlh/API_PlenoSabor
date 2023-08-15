@@ -28,7 +28,7 @@ export async function ensureAuthenticate(
     }
 
     /* @ts-ignore */
-    request.user_id = sub;
+    request.user_id = sub.toString();
     /* @ts-ignore */
     request.email = email;
 

@@ -5,7 +5,7 @@ export interface IProductsRepository {
     product_name: string,
     category: string,
     price: number,
-    description: string
+    description?: string  | undefined
   ): Promise<Products>;
 
   findByName(product_name: string): Promise<Products>;

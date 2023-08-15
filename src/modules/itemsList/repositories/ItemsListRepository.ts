@@ -62,6 +62,7 @@ export class ItemsListRepository implements IItemsListRepository{
     details
   }): Promise<void> {
     const item = await this.repository.create({
+      itemList_id,
       order_id,
       product_id,
       quantity,

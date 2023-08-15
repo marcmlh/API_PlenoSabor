@@ -46,6 +46,7 @@ export class OrdersRepository implements IOrdersRepository{
     payment_status,
   }): Promise<void> {
     const order = await this.repository.create({
+      order_id,
       user_id,
       order_date,
       payment_status,

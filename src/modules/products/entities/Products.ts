@@ -9,18 +9,18 @@ export class Products {
         }
     }
 
-    @PrimaryColumn()
+    @PrimaryColumn('text',{nullable:false})
     product_id: string;
 
-    @Column()
+    @Column('text',{nullable:false})
     product_name: string;
     
-    @Column()
+    @Column('text',{nullable:false})
     category: string;
 
-    @Column()
+    @Column('numeric',{nullable:false})
     price: number;
 
-    @Column()
+    @Column('text',{nullable:false})
     description: string
 }

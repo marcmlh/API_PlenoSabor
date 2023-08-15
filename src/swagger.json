@@ -1,3 +1,643 @@
 {
-    
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Pleno sabor API",
+    "description": "API desenvolvida para estudos.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "marcelomlaham@hotmail.com"
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "user_name": "Rodrigo",
+                  "email": "rodrigo@email.com",
+                  "password": "123"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "get": {
+        "tags": ["User"],
+        "summary": "Find",
+        "description": "Find an user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "required": true,
+            "description": "Email to find and user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete",
+        "description": "Delete an user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "required": true,
+            "description": "Email to delete an user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Deleted"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["User"],
+        "summary": "Update",
+        "description": "Update an user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_name": {
+                    "type": "string",
+                    "required": false
+                  },
+                  "password": {
+                    "type": "string",
+                    "required": false
+                  },
+                  "email": {
+                    "type": "string",
+                    "required": false
+                  }
+                },
+                "example": {
+                  "user_name": "Rodrigo Gonçalves",
+                  "password": "1234",
+                  "email": "rodrigo@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/authenticate": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Authenticate",
+        "description": "Authenticate an user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "rodrigo@email.com",
+                  "password": "123"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Um objeto default response com....."
+          }
+        }
+      }
+    },
+    "/products": {
+      "post": {
+        "tags": ["Product"],
+        "summary": "Create",
+        "description": "Create a new product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_name": {
+                    "type": "string"
+                  },
+                  "category": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "product_name": "Pizza de Mussarela",
+                  "category": "Pizzas Salgadas",
+                  "price": 65.99,
+                  "description": "Pizza de mussarela com azeitonas"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Um objeto default response com....."
+          }
+        }
+      },
+      "get": {
+        "tags": ["Product"],
+        "summary": "Find",
+        "description": "Find a product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "product_name",
+            "required": true,
+            "description": "Product's name to find a product"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product found"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Product"],
+        "summary": "Delete",
+        "description": "Delete a product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "product_name",
+            "required": true,
+            "description": "Product's name to delete a product"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/products/{product_id}": {
+      "patch": {
+        "tags": ["Product"],
+        "summary": "Patch",
+        "description": "Patch a product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "product_id",
+            "required": true,
+            "description": "Id passing by path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "operations": {
+                    "type": "string",
+                    "required": false
+                  }
+                },
+                "example": {
+                  "operations": [
+                    { "op": "replace", "path": "/product_name", "value": "Pizza de Mussarela com Azeitonas"}
+                ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "post": {
+        "tags": ["Order"],
+        "summary": "Create",
+        "description": "Create a new order",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Order"],
+        "summary": "Find",
+        "description": "Find orders by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/orders/{order_id}": {
+      "delete": {
+        "tags": ["Order"],
+        "summary": "Delete",
+        "description": "Delete an order by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order_id",
+            "required": true,
+            "description": "Id passing by path"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Order deleted"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Order"],
+        "summary": "Patch",
+        "description": "Patch a product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "order_id",
+            "required": true,
+            "description": "Id passing by path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "operations": {
+                    "type": "string",
+                    "required": false
+                  }
+                },
+                "example": {
+                  "operations": [
+                    { "op": "replace", "path": "/payment_status", "value": true}
+                ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Order Updated"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/itemsList": {
+      "post": {
+        "tags": ["ItemList"],
+        "summary": "Create",
+        "description": "Create a new itemList",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string"
+                  },
+                  "product_id": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "number"
+                  },
+                  "details": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "order_id": "dhasihdio32e9230",
+                  "product_id": "aasdnaisdh89h3idakjsdh",
+                  "quantity": 2,
+                  "details": "Sem azeitonas"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        }
+      },
+      "get": {
+        "tags": ["ItemList"],
+        "summary": "Find",
+        "description": "Find itemsList",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "order_id",
+            "required": true,
+            "description": "Order id to find itemsList from and order"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Found"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["ItemList"],
+        "summary": "Delete",
+        "description": "Delete an itemList",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "itemList_id",
+            "required": true,
+            "description": "ItemList id to delete an itemList"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ItemList deleted"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "ItemList not found"
+          }
+        }
+      }
+    },
+    "/itemsList/{itemList_id}": {
+      "patch": {
+        "tags": ["ItemList"],
+        "summary": "Patch",
+        "description": "Patch an itemList",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "itemList_id",
+            "required": true,
+            "description": "Id passing by path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "operations": {
+                    "type": "string",
+                    "required": false
+                  }
+                },
+                "example": {
+                  "operations": [
+                    { "op": "replace", "path": "/quantity", "value": 2}
+                ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  }
 }

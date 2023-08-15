@@ -14,7 +14,7 @@ export class ProductsRepository implements IProductsRepository {
     product_name: string,
     category: string,
     price: number,
-    description: string
+    description?: string | undefined
   ): Promise<Products> {
     const product = this.repository.create({
       product_name,
@@ -50,6 +50,7 @@ export class ProductsRepository implements IProductsRepository {
     description}
   ): Promise<void> {
     const product = await this.repository.create({
+      product_id,
       product_name,
       category,
       price,

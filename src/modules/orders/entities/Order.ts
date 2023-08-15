@@ -16,15 +16,15 @@ export class Orders {
     }
   }
 
-  @PrimaryColumn()
+  @PrimaryColumn('text',{nullable:false})
   order_id: string;
 
-  @Column()
+  @Column('text',{nullable:false})
   user_id: string;
 
-  @Column()
+  @Column('date',{nullable:false})
   order_date: Date;
 
-  @Column()
+  @Column('bool',{nullable:false})
   payment_status: boolean;
 }
